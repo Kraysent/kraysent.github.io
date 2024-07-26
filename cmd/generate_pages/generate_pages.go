@@ -26,7 +26,6 @@ func generate(outputDir string) error {
 	generators := []generator.Generator{
 		generator.NewConstantGenerator(templates.IndexTemplate, "index.md"),
 		generator.NewConstantGenerator(templates.ConfigTemplate, "_config.yml"),
-		generator.NewConstantGenerator(templates.ExampleTemplate, "example.md"),
 	}
 
 	for _, g := range generators {
