@@ -7,4 +7,4 @@ Some links:
 - [GitHub](https://github.com/Kraysent)
 - [LinkedIn](https://www.linkedin.com/in/kraysent/)
 
-My CV can be found [here](./cv.md).
+To download my resume use [this link](https://github.com/Kraysent/CV/releases/latest/download/resume.pdf).

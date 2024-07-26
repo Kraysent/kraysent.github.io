@@ -11,7 +11,6 @@ import (
 
 func main() {
 	outputDirectory := flag.String("output", "gen", "output directory")
-	// cvPath := flag.String("cv-path", "https://github.com/Kraysent/CV/releases/latest/download/resume.pdf", "Download link for CV PDF")
 
 	flag.Parse()
 
@@ -28,7 +27,6 @@ func generate(outputDir string) error {
 		generator.NewConstantGenerator(templates.IndexTemplate, "index.md"),
 		generator.NewConstantGenerator(templates.ConfigTemplate, "_config.yml"),
 		generator.NewConstantGenerator(templates.GemfileTemplate, "Gemfile"),
-		generator.NewCVGenerator(),
 	}
 
 	for _, g := range generators {

@@ -12,6 +12,3 @@ var ConfigTemplate string
 
 //go:embed Gemfile
 var GemfileTemplate string
-
-//go:embed cv.md.tpl
-var CVTemplate string
