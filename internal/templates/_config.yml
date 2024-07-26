@@ -6,3 +6,4 @@ plugins:
   - jekyll-relative-links
 
 github: [metadata]
+google_analytics: G-R66HZYEJBL

@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"path/filepath"
 
 	"pages/internal/generator"
 	"pages/internal/templates"
@@ -47,6 +48,10 @@ func generate(outputDir string) error {
 }
 
 func writeFile(filePath, content string) error {
+	if err := os.MkdirAll(filepath.Dir(filePath), 0o770); err != nil {
+		return err
+	}
+
 	file, err := os.Create(filePath)
 	if err != nil {
 		return err

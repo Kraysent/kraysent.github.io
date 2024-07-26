@@ -1,10 +1,5 @@
 package generator
 
-import (
-	"strings"
-	"text/template"
-)
-
 type constantGenerator struct {
 	name     string
 	template string
@@ -21,16 +16,5 @@ func (c *constantGenerator) Name() string {
 }
 
 func (c *constantGenerator) Generate() (string, error) {
-	t, err := template.New("example").Parse(c.template)
-	if err != nil {
-		return "", err
-	}
-
-	var builder strings.Builder
-
-	if err := t.Execute(&builder, nil); err != nil {
-		return "", err
-	}
-
-	return builder.String(), err
+	return c.template, nil
 }
