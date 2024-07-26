@@ -28,11 +28,11 @@ jobs:
 
       - name: Build Go files
         run: |
-          go build ./cmd/generate_pages/generate_pages.go
+          go build -o ./build/generate_pages ./cmd/generate_pages
 
       - name: Generate files
         run: |
-          ./cmd/generate_pages/generate_pages -output ./gen/
+          ./build/generate_pages -output ./gen/
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
