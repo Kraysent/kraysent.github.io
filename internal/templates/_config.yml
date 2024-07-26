@@ -1,5 +1,8 @@
-title: Personal Page
-description: This is a personal page
+title: Artyom Zaporozhets
+
 remote_theme: pages-themes/cayman@v0.2.0
 plugins:
-- jekyll-remote-theme
+  - jekyll-remote-theme
+  - jekyll-relative-links
+
+github: [metadata]
