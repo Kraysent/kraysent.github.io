@@ -8,14 +8,14 @@ import (
 
 	"pages/internal/common"
 	"pages/internal/generator"
+	"pages/internal/interactions/github"
 	"pages/internal/templates"
 
-	"github.com/google/go-github/github"
+	goGithub "github.com/google/go-github/github"
 )
 
 type GeneratePagesCommand struct {
-	githubClient *github.Client
-	generators   []generator.Generator
+	generators []generator.Generator
 
 	outputDir string
 }
@@ -27,11 +27,13 @@ func (c *GeneratePagesCommand) Init() {
 
 	c.outputDir = common.PtrFrom(outputDir)
 
-	c.githubClient = github.NewClient(nil)
+	githubClient := github.NewClient(goGithub.NewClient(nil))
+
 	c.generators = []generator.Generator{
 		generator.NewConstantGenerator(templates.IndexTemplate, "index.md"),
 		generator.NewConstantGenerator(templates.ConfigTemplate, "_config.yml"),
 		generator.NewConstantGenerator(templates.GemfileTemplate, "Gemfile"),
+		generator.NewProjectsGenerator(githubClient),
 	}
 }
 
@@ -39,7 +41,7 @@ func (c *GeneratePagesCommand) Run(ctx context.Context) error {
 	os.Mkdir(c.outputDir, os.ModePerm)
 
 	for _, g := range c.generators {
-		s, err := g.Generate()
+		s, err := g.Generate(ctx)
 		if err != nil {
 			return err
 		}

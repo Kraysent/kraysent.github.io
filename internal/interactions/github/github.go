@@ -12,9 +12,9 @@ type githubClient struct {
 	client *github.Client
 }
 
-var _ GithubClient = &githubClient{}
+var _ Client = &githubClient{}
 
-func NewGithubClient(client *github.Client) *githubClient {
+func NewClient(client *github.Client) *githubClient {
 	return &githubClient{client: client}
 }
 
