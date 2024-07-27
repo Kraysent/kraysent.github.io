@@ -1,5 +1,7 @@
 package generator
 
+import "context"
+
 type constantGenerator struct {
 	name     string
 	template string
@@ -15,6 +17,6 @@ func (c *constantGenerator) Name() string {
 	return c.name
 }
 
-func (c *constantGenerator) Generate() (string, error) {
+func (c *constantGenerator) Generate(ctx context.Context) (string, error) {
 	return c.template, nil
 }
