@@ -19,7 +19,7 @@ jobs:
     name: Build files
     runs-on: ubuntu-latest
     env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.USER_GITHUB_TOKEN }}
     steps:
       - uses: actions/setup-go@v5
         with:

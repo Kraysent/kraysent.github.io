@@ -36,28 +36,49 @@ func buildRepoMarkdown(repo *github.Repository) string {
 	isForked := repo.GetFork()
 	license := repo.GetLicense().GetName()
 	homepage := repo.GetHomepage()
+	updatedAt := repo.GetUpdatedAt().Format("2006-01-02")
+	openIssues := repo.GetOpenIssuesCount()
+	topics := repo.Topics
 
 	builder.WriteString(fmt.Sprintf("## [%s](%s)\n", name, url))
 	if isForked {
 		builder.WriteString("**Forked Repository**\n\n")
 	}
 	if description != "" {
+		description = strings.Trim(description, "*")
+		description = strings.Trim(description, "-")
 		builder.WriteString(fmt.Sprintf("*%s*\n\n", description))
 	}
 	if stars != 0 {
-		builder.WriteString(fmt.Sprintf("- **Stars:** %d | ", stars))
+		builder.WriteString(fmt.Sprintf("- Starred by %d people\n\n", stars))
 	}
 	if forks != 0 {
-		builder.WriteString(fmt.Sprintf("- **Forks:** %d | ", forks))
+		builder.WriteString(fmt.Sprintf("- Forked by %d people\n\n", forks))
 	}
 	if language != "" {
 		builder.WriteString(fmt.Sprintf("- Written in %s\n\n", language))
 	}
 	if license != "" {
-		builder.WriteString(fmt.Sprintf("- **License:** %s\n\n", license))
+		builder.WriteString(fmt.Sprintf("- Licensed with %s\n\n", license))
 	}
 	if homepage != "" {
 		builder.WriteString(fmt.Sprintf("- [**%s**](%s)\n\n", homepage, homepage))
+	}
+	if updatedAt != "" {
+		builder.WriteString(fmt.Sprintf("- Last updated at %s\n\n", updatedAt))
+	}
+	if openIssues != 0 {
+		builder.WriteString(fmt.Sprintf("- %d open issues\n\n", openIssues))
+	}
+	if len(topics) > 0 {
+		builder.WriteString("- **Topics:** ")
+		for i, topic := range topics {
+			if i > 0 {
+				builder.WriteString(", ")
+			}
+			builder.WriteString(topic)
+		}
+		builder.WriteString("\n\n")
 	}
 
 	builder.WriteString("---\n\n")
