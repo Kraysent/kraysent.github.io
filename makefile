@@ -5,6 +5,7 @@ build:
 
 run: build
 	./build/generate_pages -output ./gen/
+	cp -r static/* gen/
 
 clean:
 	rm -rf ./gen/

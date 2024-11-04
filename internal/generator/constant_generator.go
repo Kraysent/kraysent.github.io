@@ -11,7 +11,7 @@ func NewConstantGenerator(template string, outputName string) *constantGenerator
 	return &constantGenerator{template: template, name: outputName}
 }
 
-func (c *constantGenerator) Name() string {
+func (c *constantGenerator) Filename() string {
 	return c.name
 }
 

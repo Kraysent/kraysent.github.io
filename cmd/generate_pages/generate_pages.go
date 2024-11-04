@@ -7,7 +7,6 @@ import (
 	"path/filepath"
 
 	"pages/internal/generator"
-	"pages/internal/templates"
 )
 
 func main() {
@@ -25,9 +24,7 @@ func main() {
 
 func generate(outputDir string) error {
 	generators := []generator.Generator{
-		generator.NewConstantGenerator(templates.IndexTemplate, "index.md"),
-		generator.NewConstantGenerator(templates.ConfigTemplate, "_config.yml"),
-		generator.NewConstantGenerator(templates.GemfileTemplate, "Gemfile"),
+		generator.NewCurrentTimeGenerator(),
 	}
 
 	for _, g := range generators {
@@ -36,7 +33,7 @@ func generate(outputDir string) error {
 			return err
 		}
 
-		filePath := fmt.Sprintf("%s/%s", outputDir, g.Name())
+		filePath := fmt.Sprintf("%s/%s", outputDir, g.Filename())
 		fmt.Printf("Writing %s\n", filePath)
 		err = writeFile(filePath, s)
 		if err != nil {
