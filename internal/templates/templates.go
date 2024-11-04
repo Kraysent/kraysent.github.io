@@ -12,3 +12,6 @@ var ConfigTemplate string
 
 //go:embed Gemfile
 var GemfileTemplate string
+
+//go:embed projects.md.tpl
+var ProjectsTemplate string
