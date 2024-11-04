@@ -1,6 +1,7 @@
 package generator
 
 import (
+	"context"
 	"strings"
 	"time"
 )
@@ -17,7 +18,7 @@ func (c *currentTimeGenerator) Filename() string {
 	return "current_time.md"
 }
 
-func (c *currentTimeGenerator) Generate() (string, error) {
+func (c *currentTimeGenerator) Generate(ctx context.Context) (string, error) {
 	t := time.Now().Format(time.RFC850)
 
 	builder := strings.Builder{}

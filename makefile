@@ -1,5 +1,7 @@
 .PHONY: build run
 
+include .env
+
 build:
 	go build -o ./build/generate_pages ./cmd/generate_pages
 

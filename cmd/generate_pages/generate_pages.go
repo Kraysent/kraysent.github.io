@@ -1,12 +1,16 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
 	"os"
 	"path/filepath"
 
 	"pages/internal/generator"
+
+	"github.com/google/go-github/github"
+	"golang.org/x/oauth2"
 )
 
 func main() {
@@ -23,12 +27,27 @@ func main() {
 }
 
 func generate(outputDir string) error {
+	ctx := context.Background()
+
+	githubToken, ok := os.LookupEnv("GITHUB_TOKEN")
+	if !ok {
+		return fmt.Errorf("GITHUB_TOKEN environment variable is not set")
+	}
+
+	ts := oauth2.StaticTokenSource(
+		&oauth2.Token{AccessToken: githubToken},
+	)
+	tc := oauth2.NewClient(ctx, ts)
+
+	client := github.NewClient(tc)
+
 	generators := []generator.Generator{
 		generator.NewCurrentTimeGenerator(),
+		generator.NewGithubProjectsGenerator(client),
 	}
 
 	for _, g := range generators {
-		s, err := g.Generate()
+		s, err := g.Generate(ctx)
 		if err != nil {
 			return err
 		}
