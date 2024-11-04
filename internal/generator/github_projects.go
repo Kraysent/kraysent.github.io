@@ -33,20 +33,31 @@ func buildRepoMarkdown(repo *github.Repository) string {
 	stars := repo.GetStargazersCount()
 	forks := repo.GetForksCount()
 	language := repo.GetLanguage()
+	isForked := repo.GetFork()
+	license := repo.GetLicense().GetName()
+	homepage := repo.GetHomepage()
 
 	builder.WriteString(fmt.Sprintf("## [%s](%s)\n", name, url))
-
+	if isForked {
+		builder.WriteString("**Forked Repository**\n\n")
+	}
 	if description != "" {
-		builder.WriteString(fmt.Sprintf("**Description:** %s\n\n", description))
+		builder.WriteString(fmt.Sprintf("*%s*\n\n", description))
 	}
 	if stars != 0 {
-		builder.WriteString(fmt.Sprintf("**Stars:** %d | ", stars))
+		builder.WriteString(fmt.Sprintf("- **Stars:** %d | ", stars))
 	}
 	if forks != 0 {
-		builder.WriteString(fmt.Sprintf("**Forks:** %d | ", forks))
+		builder.WriteString(fmt.Sprintf("- **Forks:** %d | ", forks))
 	}
 	if language != "" {
-		builder.WriteString(fmt.Sprintf("**Language:** %s\n\n", language))
+		builder.WriteString(fmt.Sprintf("- Written in %s\n\n", language))
+	}
+	if license != "" {
+		builder.WriteString(fmt.Sprintf("- **License:** %s\n\n", license))
+	}
+	if homepage != "" {
+		builder.WriteString(fmt.Sprintf("- [**%s**](%s)\n\n", homepage, homepage))
 	}
 
 	builder.WriteString("---\n\n")

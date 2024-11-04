@@ -30,11 +30,12 @@ jobs:
 
       - name: Build Go files
         run: |
-          make build
+          go build -o ./build/generate_pages ./cmd/generate_pages
 
       - name: Generate files
         run: |
-          make run
+          ./build/generate_pages -output ./gen/
+          cp -r static/* gen/
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
