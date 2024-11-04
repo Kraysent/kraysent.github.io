@@ -76,7 +76,7 @@ func buildRepoMarkdown(repo *github.Repository) string {
 			if i > 0 {
 				builder.WriteString(", ")
 			}
-			builder.WriteString(topic)
+			builder.WriteString(fmt.Sprintf("`%s`", topic))
 		}
 		builder.WriteString("\n\n")
 	}
