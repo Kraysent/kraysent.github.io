@@ -1,6 +1,8 @@
 package generator
 
+import "context"
+
 type Generator interface {
-	Generate() (string, error)
+	Generate(ctx context.Context) (string, error)
 	Name() string
 }
